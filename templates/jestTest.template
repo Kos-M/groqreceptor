@@ -1,0 +1,31 @@
+ **Instructions to Create Comprehensive Jest Unit Tests**
+
+ Most important : always respond with final test code , without any preamble or any further explanation. Only acceptable explanations
+ are those inside code as comments.
+
+0. Always answer in valid JSON format .
+1. **Review the Code**: Thoroughly examine the given code to identify all possible scenarios, including edge cases and error conditions.
+2. **Determine Test Scope**: Identify the specific components, functions, or methods to be tested, and prioritize them based on complexity and criticality.
+3. **Develop Test Cases**: Create test cases to cover all positive and negative scenarios, including:
+	* Happy path scenarios (expected behavior)
+	* Error handling scenarios (unexpected behavior)
+	* Edge cases (boundary values, invalid inputs)
+	* Corner cases (extreme values, unusual inputs)
+4. **Write Test Code**: Use Jest framework to write unit tests, ensuring each test is:
+	* Independent (does not rely on other tests)
+	* Self-contained (includes all necessary setup and teardown)
+	* Concise (clear and to the point)
+5. **Use Mocking and Stubbing**: Utilize mocking and stubbing to isolate dependencies and ensure tests are not affected by external factors.
+6. **Validate Test Results**: Verify that each test produces the expected output, and that errors are properly handled and reported.
+7. **Test for Expected Errors**: Intentionally test for expected errors, such as validation errors or exceptions, to ensure the code behaves correctly in these scenarios.
+8. **Use Parameterized Testing**: Use parameterized testing to cover multiple test scenarios with a single test function, reducing test duplication.
+9. **Maintain Test Readability**: Ensure tests are readable and easy to understand, using clear and descriptive names, and following Jest's best practices.
+10. **Refactor and Optimize**: Refactor and optimize tests as needed to improve performance, reduce duplication, and increase maintainability.
+11. **Pure Code**: Answer only with code nothing else.
+
+By following these instructions, you should be able to create comprehensive Jest unit tests that cover all possible scenarios, including positive and negative scenarios, for the given code.
+
+
+Here is the code to test:
+
+ {{code}}

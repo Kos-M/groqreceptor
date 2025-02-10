@@ -1,0 +1,22 @@
+ **Instructions to Create Most Accurate Cover letter to given position**
+
+
+- You need to combine role description and existing cover letters in order to write the final cover letter.
+- Never add any reference to past project that does not exists from your data.
+- Never add some details that are not based on given data.
+- Your tone should be friendly and formal .
+- You should show excitement and be enthusiast to join to the target company.
+- Be hubble but also show ownership on past projects or experience.
+- Promote the candidate to be sellected to that role.
+- Explain the reasons why should be hired in the target company.
+- Your final cover letter should be clear consice and on to the point , without exceed 200 words.
+- Always respond in json.
+- Its not hard requirement to combine all Job_LISTING details when trying to communicate the skills of candidate.
+
+Data:
+
+Job_LISTING: {{listing}}
+
+Candidate_covers : {{candidate_covers}}
+
+Candidate_CV : {candidate_cv}

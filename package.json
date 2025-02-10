@@ -1,0 +1,63 @@
+{
+  "name": "groqreceptor",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "_description_",
+  "author": "Kos M <mpoukouvalas.kk@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://kos-m.github.io/groqreceptor",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kos-M/groqReceptor.git"
+  },
+  "bugs": "https://github.com/Kos-M/groqReceptor/issues",
+  "keywords": [],
+  "sideEffects": false,
+  "exports": {
+    ".": "./build/index.mjs"
+  },
+  "main": "./build/index.mjs",
+  "module": "./build/index.mjs",
+  "types": "./build/index.d.mts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "build:page": "cd webui && yarn && yarn run build",
+    "dev": "unbuild --stub",
+    "lint": "eslint .",
+    "prepublishOnly": "nr build",
+    "release": "bumpp && npm publish",
+    "start": "tsx src/index.ts",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepare": ""
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "groq-sdk": "^0.12.0",
+    "handlebars": "^4.7.8"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^3.14.0",
+    "@antfu/ni": "^23.2.0",
+    "@antfu/utils": "^8.1.0",
+    "@types/node": "^22.10.6",
+    "bumpp": "^9.10.1",
+    "eslint": "^9.18.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "unbuild": "^3.3.1",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8"
+  }
+}
