@@ -25,5 +25,10 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Configure Git
+        run: |
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "github-actions[bot]"
+
       - name: Deploy to GitHub Pages
         run: npm run deploy
