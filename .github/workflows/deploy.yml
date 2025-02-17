@@ -6,7 +6,7 @@ on:
       - master
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -25,10 +25,13 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Configure Git
-        run: |
-          git config --global user.email "github-actions@github.com"
-          git config --global user.name "github-actions[bot]"
+      - name: Install Dependencies
+        run: npm run build
 
-      - name: Deploy to GitHub Pages
-        run: npm run deploy
+      - name: "Github Pages Deployment"
+        run: |
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          npm run deploy
+        if: ${{ github.ref == 'refs/heads/master' }} # only deploy master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

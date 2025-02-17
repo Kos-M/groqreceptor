@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "concurrently \"vite \" \"npx tailwindcss -i ./src/index.css -o ./src/output.css --watch\"",
     "build": "vite build",
-    "deploy": "gh-pages -d dist",
+    "deploy": "gh-pages -d dist -u \"github-actions-bot <support+actions@github.com>\"",
     "predeploy": "npm run build",
     "lint": "eslint .",
     "preview": "vite preview",
