@@ -2751,6 +2751,10 @@ html:has(.drawer-toggle:checked) {
   margin-bottom: calc(2rem * var(--tw-space-y-reverse));
 }
 
+.overflow-auto {
+  overflow: auto;
+}
+
 .overflow-x-auto {
   overflow-x: auto;
 }

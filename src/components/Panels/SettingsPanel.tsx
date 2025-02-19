@@ -313,7 +313,7 @@ const SettingsPanel: FC<SettingsPanelProps> = ({
                         Select Template
                       </option>
                       {existingTemplates.map((temp: Template) => (
-                        <option>{temp.name}</option>
+                        <option value={temp.name}>{temp.name}</option>
                       ))}
                     </select>
                   </div>

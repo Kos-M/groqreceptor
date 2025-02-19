@@ -24,7 +24,7 @@ interface DynamicState {
   [key: string]: InputDetails;
 }
 
-const SAVE_DALAY = 2500;
+const SAVE_DALAY = 500;
 function App() {
   const [state, setState] = useState<DynamicState>({});
 
@@ -89,7 +89,8 @@ function App() {
     return finalMaping;
   };
 
-  const loadTemplateInputsToState = (template: Template) => {
+  const loadTemplateInputsToState = (template: Template | null) => {
+    if (!template) return;
     template.params.forEach((param) => {
       updateState(param.name, {
         value: getFromLocalStorage(`__${template.name}__${param.name}`),
@@ -115,20 +116,14 @@ function App() {
     setChatResponses([]);
     setChatResponse("");
 
-    // return;
     if (!client) client = new Groqqer(getFromLocalStorage("groq_api"));
-
     const templateCompiled = handlebars.compile(activeTemplate.body);
 
     let paramTOValue: { [key: string]: string } = {};
     Object.keys(inputData).forEach((paramName) => {
       paramTOValue[paramName] = inputData[paramName].value;
     });
-    console.log("paramTOValue :", paramTOValue);
-
     const msgFromTemplate = templateCompiled(paramTOValue);
-
-    console.log("msgFromTemplate :", msgFromTemplate);
 
     client
       .inference(msgFromTemplate)
@@ -139,41 +134,18 @@ function App() {
           let parsed = JSON.parse(
             resp.choices[0].message.content?.toString() || "{}"
           );
-          // const { coverLetter, coverTitle } = parsed;
-
-          //           const keys = ['coverLetter', 'coverTitle'];
-          // const { ...props } = parsed;
 
           const destructured: { [key: string]: string } = outputKeys.reduce(
             (acc, key) => ({ ...acc, [key]: parsed[key] }),
             {}
           );
-
-          console.log("destructured ", destructured);
-
-          // let validCover: string = coverLetter ?? "";
-          // let edited = validCover?.replaceAll("\n", "<br/>");
-
           // sanitize responses - use br tags - make response to array
           const sanitizedReady: { [key: string]: string }[] = [];
           Object.keys(destructured).forEach((key: string) => {
             let value = destructured[key]?.replaceAll("\n", "<br/>");
             sanitizedReady.push({ [key]: DOMPurify.sanitize(value) });
           });
-          // const sanitizedChatResponse =;
-          // setChatResponse(sanitizedChatResponse);
           setChatResponses(sanitizedReady);
-
-          // let tempResps: any = [];
-          // Object.keys(parsed).forEach((key) => {
-          //   tempResps.push({ [key]: parsed[key] });
-          // });
-          // console.log(tempResps);
-          // tempResps.forEach((resp: any) => {
-          //   let key = Object.keys(resp)[0];
-
-          //   console.log(flattenAndConcatenate(resp[key]));
-          // });
           setInProgress(false);
         }
       })
@@ -211,10 +183,11 @@ function App() {
       console.log();
 
       setToLocalStorage(uniqueKey, JSON.stringify({ value }), true);
+      loadTemplateInputsToState(selectedTemplate);
     }, SAVE_DALAY);
     setTimeoutUpdateID(timeID);
   };
-  // updateState(param.name, paramValue);
+
   useEffect(() => {
     if (Object.keys(state).length === 0) return;
     setInputData(getInputToDataMapping(selectedTemplate) ?? {});
@@ -253,31 +226,6 @@ function App() {
                   </label>
                 );
               })}
-              {/* <label className="form-control w-full px-2">
-                  <div className="label">
-                    <span className="label-text text-black text-sm">
-                      Your bio
-                    </span>
-                  </div>
-                  <textarea
-                    className="textarea textarea-secondary h-28"
-                    placeholder="CV Data"
-                    onChange={(newContent) =>
-                      onCanditeChange(newContent.target.value)
-                    }
-                    value={candidateCV}
-                  ></textarea>
-                </label>
-                <label className="form-control w-full px-2">
-                  <textarea
-                    className="textarea textarea-primary h-28"
-                    placeholder="Listing"
-                    onChange={(newContent) =>
-                      onListingChange(newContent.target.value)
-                    }
-                    value={listingData}
-                  ></textarea>
-                </label> */}
             </div>
           </DataSidebar>
           <button
@@ -299,7 +247,7 @@ function App() {
 
         {/* Main Content */}
         <div className="flex flex-1 flex-grow  flex-col items-center overflow-y-scroll justify-center  h-screen ">
-          <pre className="text-red-600 text-wrap pt-14 px-2 relative w-2/3 ">
+          <pre className="text-red-600 text-wrap pt-14 px-2 relative w-2/3 overflow-auto">
             {error}
           </pre>
 
@@ -308,22 +256,6 @@ function App() {
             chatResponse={chatResponse}
           >
             {chatResponses}
-            {/* [{" "}
-            {chatResponses.map((resp) => {
-              let key = Object.keys(resp)[0];
-              return (
-                <div className="flex flex-col py-4 items-center justify-center">
-                  <h1 className="text-primary px-2 capitalize">{key}</h1>
-                  <label
-                    className="textarea textarea-secondary overflow-y-scroll h-1/2 w-full text-white"
-                    id={key}
-                  >
-                    {flattenAndConcatenate(resp)}
-                  </label>
-                </div>
-              );
-            })}
-            ] */}
           </MainChatPanelResponse>
         </div>
 
