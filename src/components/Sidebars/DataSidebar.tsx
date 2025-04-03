@@ -6,8 +6,10 @@ interface Props {
 
 const DataSidebar: React.FC<Props> = ({ children }) => {
   return (
-    <div className="rounded-md w-full pt-14 left-0 h-screen border-r-0 items-start flex justify-center overflow-y-scroll">
-      {children}
+    <div className="w-full h-full flex flex-col">
+      <div className="w-full h-full overflow-y-auto custom-scrollbar px-2 pt-16 pb-8">
+        {children}
+      </div>
     </div>
   );
 };

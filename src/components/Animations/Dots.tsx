@@ -6,11 +6,13 @@ interface Props {
 
 const Dots: React.FC<Props> = ({ mainText }) => {
   return (
-    <div className="flex items-center gap-2 text-gray-700 bg-gray-300 p-2 rounded-lg shadow-sm">
-      <span className="animate-pulse">•</span>
-      <span className="animate-pulse delay-150">•</span>
-      <span className="animate-pulse delay-300">•</span>
-      <span>{mainText ?? "Typing"}...</span>
+    <div className="flex flex-col items-center justify-center space-y-3">
+      <div className="flex space-x-2 justify-center items-center bg-primary/10 rounded-lg px-5 py-3">
+        <div className="h-2 w-2 bg-primary rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+        <div className="h-2 w-2 bg-primary rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+        <div className="h-2 w-2 bg-primary rounded-full animate-bounce"></div>
+      </div>
+      <div className="text-primary/80 font-medium">{mainText ?? "Loading"}...</div>
     </div>
   );
 };
