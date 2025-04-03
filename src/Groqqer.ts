@@ -17,6 +17,23 @@ export class Groqqer {
     this.createAllKeys()
   }
 
+  /**
+   * Validates the API key by making a simple request
+   * @returns Promise<boolean> indicating if the API key is valid
+   */
+  async validate(): Promise<boolean> {
+    try {
+      const response = await this.client.chat.completions.create({
+        messages: [{ role: "user", content: "Hi" }],
+        model: this.model,
+        max_tokens: 1
+      });
+      return response && response.choices && response.choices.length > 0;
+    } catch (e) {
+      return false;
+    }
+  }
+
   loadTemplates(templatePath: string) : Promise<string>{
     return new Promise((resolve) => {
       fetch(templatePath)

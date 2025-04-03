@@ -8,6 +8,11 @@ export type SettingsPanelProps = {
   apiValue?: string;
   doGenerate?: (activeTemplate: Template | null)=> void
   onTemplateChange?:(activeTemplate: Template)=> void
+  isMobile?: boolean;
+  apiKeyValid?: boolean | null;
+  validatingApi?: boolean;
+  error?: string;
+  onErrorDismiss?: () => void;
 };
 
 export type ChatResponseType = {

@@ -21,8 +21,38 @@
   color:whitesmoke;
   width: 100%;
 }
- 
 
+/* Fix for sidebar positioning */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app > div:nth-child(2) {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Ensure right sidebar stays on the right */
+@media (min-width: 768px) {
+  .app > div:nth-child(2) > div:nth-child(3) {
+    order: 3;
+  }
+  
+  /* Main content in the middle */
+  .app > div:nth-child(2) > div:nth-child(2) {
+    order: 2;
+  }
+  
+  /* Left sidebar stays on left */
+  .app > div:nth-child(2) > div:nth-child(1) {
+    order: 1;
+  }
+}
+ 
 .text-aeaec3 {
   color: #AEAEC3;
 }
@@ -58,4 +88,44 @@
 .editorBgImg {
   background-image: repeating-linear-gradient(45deg, rgba(226, 226, 226,0.06) 0px, rgba(226, 226, 226,0.06) 2px,transparent 2px, transparent 4px),linear-gradient(90deg, rgb(33,33,33),rgb(33,33,33));
   object-fit: cover;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+/* Custom Scrollbar Styling */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(100, 100, 100, 0.1);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(136, 136, 136, 0.5);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(136, 136, 136, 0.8);
+}
+
+/* Add subtle animations */
+@keyframes fade-out {
+  0% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.animate-fade-out {
+  animation: fade-out 2s forwards;
+}
+
+/* Retina-ready styles */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .editorBgImg {
+    background-image: repeating-linear-gradient(45deg, rgba(226, 226, 226,0.04) 0px, rgba(226, 226, 226,0.04) 1px,transparent 1px, transparent 2px),linear-gradient(90deg, rgb(33,33,33),rgb(33,33,33));
+  }
 }
